@@ -28,19 +28,6 @@ var connection = mysql.createConnection({
     
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function manageEmployees(){
     inquirer.prompt([
         {
@@ -54,7 +41,9 @@ function manageEmployees(){
             "View departments",
             "View roles",
             "View employees",
-            "Update employee role"
+            "Update employee role",
+            "Finished"
+        
         ]
         }
     ]).then(function(yourChoice) {
@@ -65,23 +54,54 @@ function manageEmployees(){
                 case "Add role":
                     addRoles();
                     break;
+
                 case "Add employee":
                     addEmployee();
                     break;
+
                 case "View departments":
                     viewDepartment();
                     break;
+
                 case "View Roles":
                     viewRoles();
                     break;
+
                 case "View employees":
                     viewEmployees();
                     break;
+
                 case "Update employee role":
-                    updateemployeeRoles();
-                    default:
-                        buildteamPage(); //figure this out tmrw maybe connection end not sure yet. 
+                    updateemployeeRole();
+                    break;
+
+                case "Finished":
+                    connection.end();
+                    break;
         }
 
+    });
+}
+
+function addDepartment(){
+    inquirer.prompt({
+        type: "input",
+        message: "What department would you like to add?",
+        name: "name"
+    }).then(function(res){
+        connection.query(
+            "INSERT INTO department SET ?",
+            {
+                name: res.name
+            },
+            function(err, res) {
+                if (err) throw err;
+                connection.query("SELECT * FROM department",function(err, res){
+                    console.table(res);
+                    viewDepartment();
+                })
+            
+            
+        })
     });
 }
