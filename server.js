@@ -52,7 +52,7 @@ function manageEmployees(){
                 addDepartment();
                 break;
                 case "Add role":
-                    addRoles();
+                    addRole();
                     break;
 
                 case "Add employee":
@@ -63,8 +63,8 @@ function manageEmployees(){
                     viewDepartment();
                     break;
 
-                case "View Roles":
-                    viewRoles();
+                case "View all employees by role":
+                    viewRole();
                     break;
 
                 case "View employees":
@@ -106,7 +106,7 @@ function addDepartment(){
     });
 }
 
-function addRoles() {
+function addRole() {
     inquirer.prompt([
         {
         type: "input",
@@ -132,7 +132,7 @@ function addRoles() {
         if (err) throw err;
         console.table(res);
         console.log("Role added");
-        viewRoles();
+        viewRole();
     })
  
 });
@@ -222,13 +222,15 @@ function viewDepartment() {
     })
 }
 
-function viewRoles() {
-    connection.query("SELECT * FROM role", 
-        function(err, res) {
-        if (err) throw err;
-        console.table(res);
-        manageEmployees();
-    })
+function viewRole() {
+    connection.query(
+        "SELECT first_name, last_name, title, salary FROM employee JOIN role ON role_id = role.id",
+        function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            manageEmployees();
+        }
+    )
 }
 
 function viewEmployees() {
