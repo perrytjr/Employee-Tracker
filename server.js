@@ -72,7 +72,7 @@ function manageEmployees(){
                     break;
 
                 case "Update employee role":
-                    updateemployeeRole();
+                    updateEmployeeRole();
                     break;
 
                 case "Finished":
@@ -126,7 +126,8 @@ function addRoles() {
         name: "departmentId",
     }
 ]).then(function(res) {
-    connection.query("INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)", [res.title, parseInt(res.salary), parseInt(res.departmentId)], 
+    connection.query("INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)", 
+    [res.title, parseInt(res.salary), parseInt(res.departmentId)], 
     function(err, res) {
         if (err) throw err;
         console.table(res);
@@ -165,7 +166,7 @@ function addEmployee() {
 
 ]).then(function(res) {
     connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
-     [res.first_name, (res.last_name),(res.role_d), (res.manager_id)], 
+     [res.first_name, (res.last_name),(res.role_id), (res.manager_id)], 
     function(err, res) {
         if (err) throw err;
         console.table(res);
@@ -176,6 +177,39 @@ function addEmployee() {
 });
 
 }
+
+function updateEmployeeRole() {
+    connection.query("SELECT * FROM employee", function(err, res) {
+        if (err) throw err;
+        var updateEmployee = res.map(function(employee) {
+            return employee.first_name + ' ' + employee.last_name
+        });
+
+        inquirer        
+            .prompt([
+                {
+                    type: "list",
+                    message: "Which employee would you like to update?",
+                    name: "employee",
+                    choices: updateEmployee
+                },
+                {
+                    type: 'input',
+                    message: "What is the new role ID for the employee?",
+                    name: "roleId"
+                }
+            ]).then(function(res) {
+                var employeeName = res.employee.split(" ");
+
+                connection.query(`UPDATE employee SET role_id = ${res.role_id} WHERE (first_name = '${employeeName[0]}') AND (last_name = '${employeeName[1]}')`, 
+                    function(err, res) {
+                   if (err) throw err;
+                   viewEmployees();
+                })
+            })
+    })  
+}
+
 
 
 //view department roles and employee functions
