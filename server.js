@@ -63,7 +63,7 @@ function manageEmployees(){
                     viewDepartment();
                     break;
 
-                case "View all employees by role":
+                case "View roles":
                     viewRole();
                     break;
 
