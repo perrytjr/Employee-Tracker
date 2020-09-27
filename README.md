@@ -24,6 +24,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/swi
 
 https://stackoverflow.com/questions/5706437/whats-the-difference-between-inner-join-left-join-right-join-and-full-join 
 
+https://www.kammerl.de/ascii/AsciiSignature.php 
+
 ## Special Thank You to:
 For hints and resources
 - [Mando Estrada](https://github.com/Mando619)
