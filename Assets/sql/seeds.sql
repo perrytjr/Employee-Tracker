@@ -33,7 +33,7 @@ VALUE ("Carla", "Perez", 5, 4);
 
 
 
-SELECT id, first_name, last_name, department.name, role.title 
+SELECT first_name, last_name, department.name, role.title 
  FROM employee JOIN role
  ON employee.role_id = role.id 
  JOIN department ON role.department_id = department.id

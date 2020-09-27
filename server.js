@@ -212,7 +212,7 @@ function updateEmployeeRole() {
             ]).then(function(res) {
                 var employeeName = res.employee.split(" ");
 
-                connection.query(`UPDATE employee SET role_id = ${res.role_id} WHERE (first_name = '${employeeName[0]}') AND (last_name = '${employeeName[1]}')`, 
+                connection.query(`UPDATE employee SET role_id = ${res.roleId} WHERE (first_name = '${employeeName[0]}') AND (last_name = '${employeeName[1]}')`, 
                     function(err, res) {
                    if (err) throw err;
                    viewEmployees();
@@ -226,7 +226,7 @@ function updateEmployeeRole() {
 //view department roles and employee functions
 function viewDepartment() {
     connection.query(
-        "SELECT first_name, last_name, name AS department FROM employee JOIN role ON role_id = role.id JOIN department ON department_id = department.id ORDER BY employee.id",
+        "SELECT * FROM department",
         function (err, res) {
         if (err) throw err;
         console.table(res);
@@ -247,10 +247,11 @@ function viewRole() {
 
 function viewEmployees() {
     connection.query(
-        "SELECT employee.id, first_name, last_name, name AS department, title, salary, manager_id FROM employee JOIN role ON employee.role_id = role_id JOIN department ON role.department_id = department.id ORDER BY employee.id",
+        "SELECT employee.id, first_name, last_name, name AS department, title, salary, manager_id FROM employee JOIN role ON role_id = role.id JOIN department ON department_id = department.id ORDER BY employee.id",
         function(err, res) {
         if (err) throw err;
         console.table(res);
         manageEmployees();
     })
 }
+
