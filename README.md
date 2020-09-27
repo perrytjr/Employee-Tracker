@@ -3,8 +3,14 @@
 ## Overview 
 This application is a CLI solution for managing a company's employees.
 
+This photo shows what the list of choices the user is prompted to manage the company's employee database.
+![](https://github.com/perrytjr/Employee-Tracker/blob/master/Assets/Screen%20Shot%202020-09-26%20at%206.32.47%20PM.png)
 
-![](https://github.com/perrytjr/Employee-Team-Generator/blob/master/Assets/Screen%20Shot%202020-09-11%20at%202.15.33%20PM.png)
+The next photo displays a table that shows all departments and each employees roles within the company including their salary. 
+
+![](https://github.com/perrytjr/Employee-Tracker/blob/master/Assets/Screen%20Shot%202020-09-26%20at%206.34.00%20PM.png)
+
+
 
 
 ## How it functions
