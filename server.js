@@ -214,8 +214,9 @@ function updateEmployeeRole() {
 
 //view department roles and employee functions
 function viewDepartment() {
-    connection.query("SELECT * FROM department", 
-        function(err, res) {
+    connection.query(
+        "SELECT first_name, last_name, name AS department FROM employee JOIN role ON role_id = role.id JOIN department ON department_id = department.id ORDER BY employee.id",
+        function (err, res) {
         if (err) throw err;
         console.table(res);
         manageEmployees();
@@ -234,7 +235,8 @@ function viewRole() {
 }
 
 function viewEmployees() {
-    connection.query("SELECT * FROM employee", 
+    connection.query(
+        "SELECT employee.id, first_name, last_name, name AS department, title, salary, manager_id FROM employee JOIN role ON employee.role_id = role_id JOIN department ON role.department_id = department.id ORDER BY employee.id",
         function(err, res) {
         if (err) throw err;
         console.table(res);
