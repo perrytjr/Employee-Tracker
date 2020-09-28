@@ -54,6 +54,7 @@ function manageEmployees() {
                 "View employees",
                 "Update employee role",
                 "Delete a employee",
+                "Delete a department",
                 "Finished"
 
             ]
@@ -89,6 +90,10 @@ function manageEmployees() {
 
             case "Delete a employee":
                 deleteEmployee();
+                break;
+
+            case "Delete a department":
+                deleteDepartment();
                 break;
 
             case "Finished":
@@ -275,7 +280,7 @@ function updateEmployeeRole() {
         })
 }
 function deleteEmployee(){
-    
+
     connection.query("SELECT * FROM employee", function(err, res) {
         if (err) throw err;
         var employeeArray = res.map(function(employee) {
@@ -297,6 +302,36 @@ function deleteEmployee(){
             function (err, res) {
                 if (err) throw err;
                 viewEmployees();
+            }
+                
+            )
+        })
+    })
+}
+
+function deleteDepartment(){
+    
+    connection.query("SELECT * FROM department", function(err, res) {
+        if (err) throw err;
+        var departmentArray = res.map(function(department) {
+            return department.name
+        });
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "department",
+                message: "Which department would you like to delete?",
+                choices: departmentArray
+
+                }
+        ]).then(function(res){
+            var deletedept = res.department
+
+            connection.query( `DELETE FROM department WHERE (name = '${deletedept}')`,
+            
+            function (err, res) {
+                if (err) throw err;
+                viewDepartment()
             }
                 
             )
