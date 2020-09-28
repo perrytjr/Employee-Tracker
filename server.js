@@ -117,11 +117,11 @@ function addDepartment() {
             },
             function (err, res) {
                 if (err) throw err;
-                console.table(res);
-                viewDepartment();
+               
+                  viewDepartment();
             }
 
-
+          
         )
     });
 }
@@ -248,7 +248,7 @@ function updateEmployeeRole() {
                 {
                     type: "list",
                     name: "id",
-                    message: "What role would you like to update?",
+                    message: "Please select the specific id for the employee you wish to change role?",
                     choices: res.map((employee) => {
                         return {
                             name: employee.name,
@@ -339,12 +339,10 @@ function deleteDepartment(){
     })
 }
 
-
-
 //view department roles and employee functions
 function viewDepartment() {
     connection.query(
-        "SELECT first_name, last_name, name AS department FROM employee JOIN role ON role_id = role.id JOIN department ON department_id = department.id ORDER BY employee.id",
+        "SELECT * FROM  department",
         function (err, res) {
             if (err) throw err;
             console.table(res);
@@ -365,7 +363,7 @@ function viewRole() {
 
 function viewEmployees() {
     connection.query(
-        "SELECT employee.id, first_name, last_name, name AS department, title, salary, manager_id FROM employee JOIN role ON role_id = role.id JOIN department ON department_id = department.id ORDER BY employee.id",
+        "SELECT * FROM employee",
         function (err, res) {
             if (err) throw err;
             console.table(res);
